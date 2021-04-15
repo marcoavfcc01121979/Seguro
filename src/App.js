@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import Header from './components/Header';
+
+import styled from '@emotion/styled';
+import Formulario from './components/Formulario';
+import Resumo from './components/Resumo';
+
+const Conteiner = styled.div`
+  max-width: 600px;
+  margin: 0 auto;
+`;
+
+const ConteinerFormaulario = styled.div`
+  background-color: #FFF;
+  padding: 3rem;
+`;
 
 function App() {
+  const [resumo, setResumo] = useState({
+    cotacao: 0,
+    dados: {
+      marca: '',
+      year: '',
+      plan: ''
+    }
+  });
+
+  // extrair dados
+  const { dados } = resumo; 
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Conteiner>
+      <Header titulo='Cotação de seguros' />
+
+      <ConteinerFormaulario>
+        <Formulario 
+          setResumo={setResumo}
+        />
+
+      <Resumo 
+        dados={dados}
+      />
+      </ConteinerFormaulario>
+    </Conteiner>
   );
 }
 
