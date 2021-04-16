@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import Formulario from './components/Formulario';
 import Resumo from './components/Resumo';
 import Resultado from './components/Resultado';
+import Spinner from './components/Spinner';
 
 const Conteiner = styled.div`
   max-width: 600px;
@@ -26,6 +27,8 @@ const App = ( ) => {
     }
   });
 
+  const [carregando, setCarregando] = useState(false);
+
   // extrair dados
   const { cotacao ,dados } = resumo; 
 
@@ -36,15 +39,22 @@ const App = ( ) => {
       <ConteinerFormaulario>
         <Formulario 
           setResumo={setResumo}
+          setCarregando={setCarregando}
         />
+
+        {carregando ? <Spinner /> : null}
 
       <Resumo 
         dados={dados}
       />
 
-      <Resultado 
-        cotacao={cotacao}
-      />
+      {!carregando ?
+        <Resultado 
+          cotacao={cotacao}
+        /> : null
+      }
+
+      
       </ConteinerFormaulario>
     </Conteiner>
   );

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 // import { Container } from './styles';
 import styled from '@emotion/styled'
+import PropTypes from 'prop-types'
+
 import { calculaPlano, calcularMarca, obterDiferencaAno } from '../../Helper';
 
 const Campo = styled.div`
@@ -53,7 +55,7 @@ const Error = styled.div`
   margin-bottom: 2rem;
 `;
 
-function Formulario({ setResumo }) {
+function Formulario({ setResumo, setCarregando }) {
   const [dados, setDados] = useState({
     marca: '',
     year: '',
@@ -88,17 +90,14 @@ function Formulario({ setResumo }) {
 
     // obter a diferença de anos
     const diferenca = obterDiferencaAno(year);
-    console.log(diferenca);
 
     // por cada ano tem que resta 3%
     resultado -= (( diferenca * 3 ) * resultado) / 100;
-    console.log(resultado); 
 
     // Americano 15%
     // Asiatico 3%
     // Europeu 30%
     resultado = calcularMarca(marca) * resultado;
-    console.log(resultado);
 
     // Basico aumenta 20%
     // Completo 50%
@@ -106,13 +105,21 @@ function Formulario({ setResumo }) {
     console.log(resultado);*/
     const incrementoPlano = calculaPlano(plan);
     resultado = parseFloat(incrementoPlano * resultado).toFixed(2);
-    console.log(resultado);
+    
     // Total
 
-    setResumo({
-      cotacao: resultado,
-      dados
-    })
+    setCarregando(true);
+
+    setTimeout(() => {
+      //Elimina o spinner
+      setCarregando(false);
+
+      // passa a informação ao componente principal
+      setResumo({
+        cotacao: Number(resultado),
+        dados
+      })
+    }, 3000);
   } 
 
   return(
@@ -175,6 +182,11 @@ function Formulario({ setResumo }) {
           <Botao type="submit">Cotação de preços</Botao>
       </form>
   );
+}
+
+Formulario.propTypes = {
+  setResumo: PropTypes.func.isRequired,
+  setCarregando: PropTypes.func.isRequired
 }
 
 export default Formulario;

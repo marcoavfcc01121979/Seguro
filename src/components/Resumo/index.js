@@ -4,6 +4,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { primeiraMaiuscula } from '../../Helper';
 
+import PropTypes from 'prop-types'
+
 const ContainerResumo = styled.div`
     padding: 1rem;
     text-align: center;
@@ -28,6 +30,10 @@ function Resumo({ dados }) {
         </ul>
       </ContainerResumo>
   );
+}
+
+Resumo.propTypes = {
+  dados: PropTypes.object.isRequired,
 }
 
 export default Resumo;
