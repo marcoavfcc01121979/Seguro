@@ -4,6 +4,7 @@ import Header from './components/Header';
 import styled from '@emotion/styled';
 import Formulario from './components/Formulario';
 import Resumo from './components/Resumo';
+import Resultado from './components/Resultado';
 
 const Conteiner = styled.div`
   max-width: 600px;
@@ -15,7 +16,7 @@ const ConteinerFormaulario = styled.div`
   padding: 3rem;
 `;
 
-function App() {
+const App = ( ) => {
   const [resumo, setResumo] = useState({
     cotacao: 0,
     dados: {
@@ -26,7 +27,7 @@ function App() {
   });
 
   // extrair dados
-  const { dados } = resumo; 
+  const { cotacao ,dados } = resumo; 
 
   return (
     <Conteiner>
@@ -39,6 +40,10 @@ function App() {
 
       <Resumo 
         dados={dados}
+      />
+
+      <Resultado 
+        cotacao={cotacao}
       />
       </ConteinerFormaulario>
     </Conteiner>
